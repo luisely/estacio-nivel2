@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receitas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<style>
+  body {
+    height: 100vh;
+  }
+
+  #pnlCatalogo {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 250px;
+    border: 1px solid #ccc;
+    margin: 10px;
+  }
+</style>
+
+<body onload="preencheCatalogo()">
+  <h1>Catálogo de Receitas</h1>
+  <div class="container-fluid bg-warning">
+    <div id="pnlCatalogo"></div>
+
+  </div>
+</body>
+
+<script>
+  const receitas = [
+    {
+      titulo: "Arroz de Couve-Flor",
+      imagem: "Arroz-de-couve-flor.png",
+      preparo: "Deixe a couve-flor picada. Adicione os ingredientes e refogue bem. Adicione sal, tampe a panela e deixa cozinhar.",
+      ingredientes: ["Arroz", "Couve-Flor", "Cebola Média", "Azeite"]
+    },
+    {
+      titulo: "Bolo de Café",
+      imagem: "bolo-de-cafe-3.jpg",
+      preparo: "Bata o açúcar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte à mistura.",
+      ingredientes: ["Farinha de Trigo", "Açucar", "Cafá Coado", "Chocolate em Pó", "Ovos"]
+    },
+    {
+      titulo: "Coxinha de Brigadeiro",
+      imagem: "Coxinha-Morango-02.webp",
+      preparo: "Junte o leite condensado, chocolate em pó e manteiga. Aqueça no fogo baixo. Envolva os morangos e passe no granulado.",
+      ingredientes: ["Leite condensado", "Chocolate em pó", "Manteiga", "Morango", "Chocolate Granulado"]
+    },
+    {
+      titulo: "Frango à Parmegiana",
+      imagem: "frango.jpeg",
+      preparo: "Empane os filés de frango, frite e cubra com molho de tomate e queijo. Asse até o queijo derreter.",
+      ingredientes: ["Filés de Frango", "Farinha de Rosca", "Ovos", "Molho de Tomate", "Queijo Parmesão"]
+    },
+    {
+      titulo: "Salada de Quinoa",
+      imagem: "salada.jpg",
+      preparo: "Cozinhe a quinoa. Misture com legumes e molho. Sirva frio.",
+      ingredientes: ["Quinoa", "Tomate", "Pepino", "Cebola Roxa", "Molho de Limão"]
+    },
+    {
+      titulo: "Sopa de Abóbora",
+      imagem: "abobora.jpeg",
+      preparo: "Cozinhe a abóbora com cebola e alho. Bata no liquidificador. Leve ao fogo com creme de leite.",
+      ingredientes: ["Abóbora", "Cebola", "Alho", "Creme de Leite"]
+    },
+    {
+      titulo: "Macarrão Carbonara",
+      imagem: "carbonara.jpg",
+      preparo: "Cozinhe o macarrão. Frite bacon. Misture com ovos e queijo. Sirva com pimenta preta.",
+      ingredientes: ["Macarrão", "Bacon", "Ovos", "Queijo Parmesão", "Pimenta Preta"]
+    },
+    {
+      titulo: "Risoto de Cogumelos",
+      imagem: "Risoto.jpg",
+      preparo: "Refogue cebola e alho. Adicione arroz e vinho. Cozinhe com caldo de cogumelos. Finalize com queijo e manteiga.",
+      ingredientes: ["Cebola", "Alho", "Arroz Arborio", "Vinho Branco", "Cogumelos", "Queijo Parmesão", "Manteiga"]
+    },
+    {
+      titulo: "Pudim de Leite Condensado",
+      imagem: "pudim.webp",
+      preparo: "Misture leite condensado, leite e ovos. Faça uma calda de caramelo. Asse em banho-maria.",
+      ingredientes: ["Leite Condensado", "Leite", "Ovos", "Açúcar", "Água"]
+    },
+    {
+      titulo: "Salmão Grelhado",
+      imagem: "salmao.jpg",
+      preparo: "Tempere o salmão com limão e ervas. Grelhe até dourar. Sirva com molho de manteiga.",
+      ingredientes: ["Salmão", "Limão", "Ervas", "Manteiga"]
+    },
+  ];
+
+  function getListaIngredientes(receita) {
+    const listaIngredientes = receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((acc, value) => acc + value, "");
+    return `<ul>${listaIngredientes}</ul>`;
+  }
+
+  function getCard(receita) {
+    return `
+      <div class="card">
+        <img class="card-img-top" src="${receita.imagem}" alt="${receita.titulo}">
+        <div class="card-body">
+          <h5 class="card-title">${receita.titulo}</h5>
+          <div class="card-text">
+            ${getListaIngredientes(receita)}
+            <hr>
+            ${receita.preparo}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function preencheCatalogo() {
+    const pnlCatalogo = document.getElementById("pnlCatalogo");
+    const htmlReceitas = receitas.map(receita => getCard(receita));
+    pnlCatalogo.innerHTML = htmlReceitas;
+  }
+</script>
+
+</html>

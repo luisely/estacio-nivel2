@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordenações</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor:</label>
+        <input type="number" id="valor" class="form-control">
+      </div>
+      <button id="adicionar" class="btn btn-primary">Adicionar</button>
+
+      <div class="mb-3">
+        <label for="algoritmo" class="form-label">Algoritmo de Ordenação:</label>
+        <select id="algoritmo" class="form-select">
+          <option value="bubble">Bubble Sort</option>
+          <option value="selection">Selection Sort</option>
+          <option value="quick">Quick Sort</option>
+        </select>
+      </div>
+      <button id="ordenar" class="btn btn-success">Ordenar</button>
+      <button id="misturar" class="btn btn-info">Misturar</button>
+    </div>
+  </div>
+  <ul id="valores" class="mt-3">
+  </ul>
+</div>
+
+<script>
+  const valoresList = document.getElementById("valores");
+  const valorInput = document.getElementById("valor");
+  const adicionarButton = document.getElementById("adicionar");
+  const ordenacao = document.getElementById("algoritmo");
+  const ordenarButton = document.getElementById("ordenar");
+  const misturarButton = document.getElementById("misturar");
+  const valores = [];
+
+  function add() {
+    const valor = parseInt(valorInput.value);
+    if (valor) {
+      const node = document.createElement("li");
+      const textNode = document.createTextNode(valor);
+      node.appendChild(textNode);
+      valoresList.appendChild(node);
+      valores.push(valor);
+      valorInput.value = "";
+    }
+  }
+
+  function ordenar() {
+    const tipoDeOrdenacao = ordenacao.value;
+    const valoresInteiros = Array.from(valoresList.children).map(li => parseInt(li.innerHTML));
+
+    if (tipoDeOrdenacao === "bubble") {
+      bubble_sort(valoresInteiros);
+    } else if (tipoDeOrdenacao === "selection") {
+      selection_sort(valoresInteiros);
+    } else if (tipoDeOrdenacao === "quick") {
+      quick_sort(valoresInteiros, 0, valoresInteiros.length - 1);
+    }
+
+    valoresList.innerHTML = valoresInteiros.map(valor => `<li>${valor}</li>`).join('');
+  }
+
+  function misturar() {
+    const valoresInteiros = Array.from(valoresList.children).map(li => parseInt(li.innerHTML));
+    shuffle(valoresInteiros, valoresInteiros.length);
+
+    valoresList.innerHTML = valoresInteiros.map(valor => `<li>${valor}</li>`).join('');
+  }
+
+  adicionarButton.addEventListener("click", add);
+  ordenarButton.addEventListener("click", ordenar);
+  misturarButton.addEventListener("click", misturar);
+</script>
+</body>
+<script src="ordenando.js"></script>
+
+</html>
